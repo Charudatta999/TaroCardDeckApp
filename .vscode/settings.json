@@ -1,0 +1,11 @@
+
+{
+    "cmake.generator": "Ninja",
+    "cmake.buildDirectory": "${workspaceFolder}/build-android",
+    "cmake.configureSettings": {
+        "CMAKE_PREFIX_PATH": "D:/cjadhav/Qt/6.11.0/android_arm64_v8a"
+    },
+    "cmake.configureOnOpen": false,
+    "editor.formatOnSave": true,
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
+}

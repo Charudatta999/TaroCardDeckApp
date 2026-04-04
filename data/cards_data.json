@@ -1,0 +1,782 @@
+[
+  {
+    "id": 0,
+    "cardType": "0. The Fool",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "New beginnings innocence leap faith",
+    "reversedKeywords": "Recklessness naivety",
+    "name": "Brahma",
+    "notes": "Begin without memory",
+    "imagePath": "cards/major/00_the_fool.png"
+  },
+  {
+    "id": 1,
+    "cardType": "1. The Magician",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Manifestation skill power",
+    "reversedKeywords": "Manipulation illusion",
+    "name": "Vishwakarma",
+    "notes": "Build what you see",
+    "imagePath": "cards/major/01_the_magician.png"
+  },
+  {
+    "id": 2,
+    "cardType": "2. The High Priestess",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Intuition mystery inner knowledge",
+    "reversedKeywords": "Blocked intuition secrecy",
+    "name": "Dakshinamurti",
+    "notes": "Truth is silent",
+    "imagePath": "cards/major/02_the_high_priestess.png"
+  },
+  {
+    "id": 3,
+    "cardType": "3. The Empress",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Nurture abundance creativity",
+    "reversedKeywords": "Dependence stagnation",
+    "name": "Parvati",
+    "notes": "Creation needs care",
+    "imagePath": "cards/major/03_the_empress.png"
+  },
+  {
+    "id": 4,
+    "cardType": "4. The Emperor",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Authority structure leadership",
+    "reversedKeywords": "Rigidity control",
+    "name": "Rama",
+    "notes": "Rule with dharma",
+    "imagePath": "cards/major/04_the_emperor.png"
+  },
+  {
+    "id": 5,
+    "cardType": "5. The Hierophant",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Tradition teaching values",
+    "reversedKeywords": "Dogma rebellion",
+    "name": "Vyasa",
+    "notes": "Preserve wisdom",
+    "imagePath": "cards/major/05_the_hierophant.png"
+  },
+  {
+    "id": 6,
+    "cardType": "6. The Lovers",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Union choice alignment",
+    "reversedKeywords": "Disharmony imbalance",
+    "name": "Shiva-Shakti",
+    "notes": "Duality seeks unity",
+    "imagePath": "cards/major/06_the_lovers.png"
+  },
+  {
+    "id": 7,
+    "cardType": "7. The Chariot",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Willpower victory direction",
+    "reversedKeywords": "Lack of control",
+    "name": "Kartikeya",
+    "notes": "Focus wins wars",
+    "imagePath": "cards/major/07_the_chariot.png"
+  },
+  {
+    "id": 8,
+    "cardType": "8. Strength",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Courage compassion resilience",
+    "reversedKeywords": "Fear doubt",
+    "name": "Hanuman",
+    "notes": "Faith is strength",
+    "imagePath": "cards/major/08_strength.png"
+  },
+  {
+    "id": 9,
+    "cardType": "9. The Hermit",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Introspection solitude wisdom",
+    "reversedKeywords": "Isolation avoidance",
+    "name": "Vasistha",
+    "notes": "Withdraw to see",
+    "imagePath": "cards/major/09_the_hermit.png"
+  },
+  {
+    "id": 10,
+    "cardType": "10. Wheel of Fortune",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Cycles destiny change",
+    "reversedKeywords": "Resistance stagnation",
+    "name": "MahaKala",
+    "notes": "Time moves all",
+    "imagePath": "cards/major/10_wheel_of_fortune.png"
+  },
+  {
+    "id": 11,
+    "cardType": "11. Justice",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Truth balance karma",
+    "reversedKeywords": "Injustice dishonesty",
+    "name": "Shani",
+    "notes": "You receive what you give",
+    "imagePath": "cards/major/11_justice.png"
+  },
+  {
+    "id": 12,
+    "cardType": "12. The Hanged Man",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Surrender pause perspective",
+    "reversedKeywords": "Stagnation resistance",
+    "name": "Markandeya",
+    "notes": "Pause to transform",
+    "imagePath": "cards/major/12_the_hanged_man.png"
+  },
+  {
+    "id": 13,
+    "cardType": "13. Death",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Endings transformation rebirth",
+    "reversedKeywords": "Fear of change",
+    "name": "Yama",
+    "notes": "End is transition",
+    "imagePath": "cards/major/13_death.png"
+  },
+  {
+    "id": 14,
+    "cardType": "14. Temperance",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Balance harmony integration",
+    "reversedKeywords": "Excess imbalance",
+    "name": "Vishnu",
+    "notes": "Sustain balance",
+    "imagePath": "cards/major/14_temperance.png"
+  },
+  {
+    "id": 15,
+    "cardType": "15. The Devil",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Attachment ego bondage",
+    "reversedKeywords": "Freedom release",
+    "name": "Ravana",
+    "notes": "Attachment binds",
+    "imagePath": "cards/major/15_the_devil.png"
+  },
+  {
+    "id": 16,
+    "cardType": "16. The Tower",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Collapse revelation chaos",
+    "reversedKeywords": "Avoidance denial",
+    "name": "Kaal Bhairav",
+    "notes": "Truth destroys illusion",
+    "imagePath": "cards/major/16_the_tower.png"
+  },
+  {
+    "id": 17,
+    "cardType": "17. The Star",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Hope healing guidance",
+    "reversedKeywords": "Hopelessness doubt",
+    "name": "Agastya",
+    "notes": "Light guides you",
+    "imagePath": "cards/major/17_the_star.png"
+  },
+  {
+    "id": 18,
+    "cardType": "18. The Moon",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Illusion subconscious fear",
+    "reversedKeywords": "Clarity truth",
+    "name": "Soma",
+    "notes": "Perception deceives",
+    "imagePath": "cards/major/18_the_moon.png"
+  },
+  {
+    "id": 19,
+    "cardType": "19. The Sun",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Joy vitality success",
+    "reversedKeywords": "Temporary sadness",
+    "name": "Surya",
+    "notes": "Shine fully",
+    "imagePath": "cards/major/19_the_sun.png"
+  },
+  {
+    "id": 20,
+    "cardType": "20. Judgement",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Awakening rebirth calling",
+    "reversedKeywords": "Self-doubt avoidance",
+    "name": "Valmiki",
+    "notes": "Rewrite yourself",
+    "imagePath": "cards/major/20_judgement.png"
+  },
+  {
+    "id": 21,
+    "cardType": "21. The World",
+    "arcana": "Major Arcana",
+    "uprightKeywords": "Completion unity wholeness",
+    "reversedKeywords": "Incompletion fragmentation",
+    "name": "Tripura Sundari",
+    "notes": "All is one",
+    "imagePath": "cards/major/21_the_world.png"
+  },
+  {
+    "id": 22,
+    "cardType": "Ace of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "New love, emotional beginnings, compassion, intuition, creativity",
+    "reversedKeywords": "Blocked emotions, emptiness, self-love needed",
+    "name": "Radha",
+    "notes": "Pure devotional love and the opening of the heart",
+    "imagePath": "cards/cups/ace_cups.png"
+  },
+  {
+    "id": 23,
+    "cardType": "Two of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Partnership, connection, harmony, mutual attraction, love",
+    "reversedKeywords": "Breakup, imbalance, disharmony, distrust",
+    "name": "Nala and Damayanti",
+    "notes": "Mutual devotion, emotional reciprocity, and sacred partnership",
+    "imagePath": "cards/cups/two_cups.png"
+  },
+  {
+    "id": 24,
+    "cardType": "Three of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Friendship, celebration, community, collaboration, joy",
+    "reversedKeywords": "Overindulgence, isolation, third-party issues",
+    "name": "Apsaras",
+    "notes": "Joyful fellowship, celebration, and shared emotional uplift",
+    "imagePath": "cards/cups/three_cups.png"
+  },
+  {
+    "id": 25,
+    "cardType": "Four of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Contemplation, apathy, reevaluation, missed opportunities",
+    "reversedKeywords": "New awareness, acceptance, moving forward",
+    "name": "King Janaka",
+    "notes": "Detached reflection, inner reassessment, and quiet wisdom",
+    "imagePath": "cards/cups/four_cups.png"
+  },
+  {
+    "id": 26,
+    "cardType": "Five of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Loss, grief, disappointment, regret, sorrow",
+    "reversedKeywords": "Acceptance, moving on, forgiveness, finding silver lining",
+    "name": "Sita",
+    "notes": "Grace under sorrow, endurance through separation, and inner strength",
+    "imagePath": "cards/cups/five_cups.png"
+  },
+  {
+    "id": 27,
+    "cardType": "Six of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Nostalgia, innocence, childhood, happy memories, giving",
+    "reversedKeywords": "Stuck in past, maturity needed, letting go of old patterns",
+    "name": "Lav and Kush",
+    "notes": "Childhood innocence, memory, and unspoiled sweetness",
+    "imagePath": "cards/cups/six_cups.png"
+  },
+  {
+    "id": 28,
+    "cardType": "Seven of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Choices, illusions, dreams, options, fantasy",
+    "reversedKeywords": "Clarity, decision-making, focus, realism",
+    "name": "Maya / Yogamaya",
+    "notes": "Tempting visions, emotional illusion, and many possible paths",
+    "imagePath": "cards/cups/seven_cups.png"
+  },
+  {
+    "id": 29,
+    "cardType": "Eight of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Walking away, search for meaning, transition, deeper purpose",
+    "reversedKeywords": "Avoidance, fear of change, staying in bad situation",
+    "name": "Jada Bharata",
+    "notes": "Renunciation, inner quest, and leaving the familiar for truth",
+    "imagePath": "cards/cups/eight_cups.png"
+  },
+  {
+    "id": 30,
+    "cardType": "Nine of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Contentment, satisfaction, emotional fulfillment, wishes granted",
+    "reversedKeywords": "Smugness, dissatisfaction, material over emotional",
+    "name": "Sudama",
+    "notes": "Humble fulfillment, emotional richness, and quiet abundance",
+    "imagePath": "cards/cups/nine_cups.png"
+  },
+  {
+    "id": 31,
+    "cardType": "Ten of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Harmony, family happiness, fulfillment, emotional security",
+    "reversedKeywords": "Family discord, broken home, temporary happiness",
+    "name": "Atri and Anasuya",
+    "notes": "Ideal household harmony, devotion, and emotional completion",
+    "imagePath": "cards/cups/ten_cups.png"
+  },
+  {
+    "id": 32,
+    "cardType": "Page of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Creativity, intuition, messages, sensitivity, new emotions",
+    "reversedKeywords": "Emotional immaturity, blocked creativity, insecurity",
+    "name": "Narada",
+    "notes": "Playful intuition, emotional messages, and creative openings",
+    "imagePath": "cards/cups/page_cups.png"
+  },
+  {
+    "id": 33,
+    "cardType": "Knight of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Romance, charm, idealism, following heart, offers",
+    "reversedKeywords": "Moodiness, unrealistic, emotional manipulation",
+    "name": "Kamadeva",
+    "notes": "Romantic pursuit, heartfelt desire, and emotional magnetism",
+    "imagePath": "cards/cups/knight_cups.png"
+  },
+  {
+    "id": 34,
+    "cardType": "Queen of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Compassion, nurturing, emotional intelligence, intuition",
+    "reversedKeywords": "Emotional dependency, insecurity, codependency",
+    "name": "Maitreyi",
+    "notes": "Deep emotional wisdom, compassion, and reflective sensitivity",
+    "imagePath": "cards/cups/queen_cups.png"
+  },
+  {
+    "id": 35,
+    "cardType": "King of Cups",
+    "arcana": "Cups (Water)",
+    "uprightKeywords": "Emotional balance, diplomacy, compassion, wisdom",
+    "reversedKeywords": "Emotional manipulation, moodiness, volatility",
+    "name": "Yudhishthira",
+    "notes": "Steady emotional leadership, restraint, and dharmic calm",
+    "imagePath": "cards/cups/king_cups.png"
+  },
+  {
+    "id": 36,
+    "cardType": "Ace of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "New opportunity, prosperity, manifestation",
+    "reversedKeywords": "Missed opportunity",
+    "name": "Kubera",
+    "notes": "Seed of wealth, material opportunity, and financial beginning",
+    "imagePath": "cards/pentacles/ace_pentacles.png"
+  },
+  {
+    "id": 37,
+    "cardType": "Two of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Balance, adaptability, juggling priorities",
+    "reversedKeywords": "Overwhelm",
+    "name": "King Janaka",
+    "notes": "Balancing worldly duties with inner steadiness",
+    "imagePath": "cards/pentacles/two_pentacles.png"
+  },
+  {
+    "id": 38,
+    "cardType": "Three of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Teamwork, skill-building, craftsmanship",
+    "reversedKeywords": "Lack of teamwork",
+    "name": "The Ribhus",
+    "notes": "Divine artisan collaboration, shared skill, and coordinated building",
+    "imagePath": "cards/pentacles/three_pentacles.png"
+  },
+  {
+    "id": 39,
+    "cardType": "Four of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Stability, security, conservation",
+    "reversedKeywords": "Greed",
+    "name": "Dhritarashtra",
+    "notes": "Clinging to control, fear of loss, and tight holding",
+    "imagePath": "cards/pentacles/four_pentacles.png"
+  },
+  {
+    "id": 40,
+    "cardType": "Five of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Hardship, loss, isolation, financial struggle",
+    "reversedKeywords": "Recovery",
+    "name": "Sudama",
+    "notes": "Poverty, humility, and endurance through lack",
+    "imagePath": "cards/pentacles/five_pentacles.png"
+  },
+  {
+    "id": 41,
+    "cardType": "Six of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Generosity, sharing, charity, balance",
+    "reversedKeywords": "Selfishness",
+    "name": "Karna",
+    "notes": "Generosity, noble giving, and sacrifice",
+    "imagePath": "cards/pentacles/six_pentacles.png"
+  },
+  {
+    "id": 42,
+    "cardType": "Seven of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Assessment, patience, long-term investment",
+    "reversedKeywords": "Impatience",
+    "name": "Bhagiratha",
+    "notes": "Long effort, patience, and sustained purpose",
+    "imagePath": "cards/pentacles/seven_pentacles.png"
+  },
+  {
+    "id": 43,
+    "cardType": "Eight of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Diligence, mastery, hard work, skill",
+    "reversedKeywords": "Burnout",
+    "name": "Ekalavya",
+    "notes": "Focused practice, discipline, and skill refinement",
+    "imagePath": "cards/pentacles/eight_pentacles.png"
+  },
+  {
+    "id": 44,
+    "cardType": "Nine of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Self-sufficiency, luxury, independence",
+    "reversedKeywords": "Isolation",
+    "name": "Mandodari",
+    "notes": "Grace, composure, and dignified self-possession",
+    "imagePath": "cards/pentacles/nine_pentacles.png"
+  },
+  {
+    "id": 45,
+    "cardType": "Ten of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Legacy, family wealth, stability, long-term success",
+    "reversedKeywords": "Family disputes",
+    "name": "Ikshvaku lineage",
+    "notes": "Generational continuity, legacy, and structured prosperity",
+    "imagePath": "cards/pentacles/ten_pentacles.png"
+  },
+  {
+    "id": 46,
+    "cardType": "Page of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Ambition, learning, new opportunities, practicality",
+    "reversedKeywords": "Lack of focus",
+    "name": "Nachiketa",
+    "notes": "Curious learner, disciplined inquiry, and practical growth",
+    "imagePath": "cards/pentacles/page_pentacles.png"
+  },
+  {
+    "id": 47,
+    "cardType": "Knight of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Reliability, hard work, patience, responsibility",
+    "reversedKeywords": "Stubbornness",
+    "name": "Nandi",
+    "notes": "Steady service, patience, and unwavering commitment",
+    "imagePath": "cards/pentacles/knight_pentacles.png"
+  },
+  {
+    "id": 48,
+    "cardType": "Queen of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Nurturing, practicality, generosity, abundance",
+    "reversedKeywords": "Self-care neglect",
+    "name": "Anasuya",
+    "notes": "Grounded care, sustenance, and nurturing stability",
+    "imagePath": "cards/pentacles/queen_pentacles.png"
+  },
+  {
+    "id": 49,
+    "cardType": "King of Pentacles",
+    "arcana": "Pentacles (Earth)",
+    "uprightKeywords": "Wealth, security, discipline, leadership",
+    "reversedKeywords": "Greed",
+    "name": "Yudhishthira",
+    "notes": "Responsible leadership, discipline, and dharmic wealth",
+    "imagePath": "cards/pentacles/king_pentacles.png"
+  },
+  {
+    "id": 50,
+    "cardType": "Ace of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Breakthrough, clarity, truth, new ideas",
+    "reversedKeywords": "Confusion",
+    "name": "Shukracharya",
+    "notes": "Sharp insight, strategic intelligence, and piercing truth",
+    "imagePath": "cards/swords/ace_swords.png"
+  },
+  {
+    "id": 51,
+    "cardType": "Two of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Indecision, stalemate, difficult choices",
+    "reversedKeywords": "Release, decision-making",
+    "name": "Yajnavalkya",
+    "notes": "Balanced reasoning, philosophical tension, and inner choice",
+    "imagePath": "cards/swords/two_swords.png"
+  },
+  {
+    "id": 52,
+    "cardType": "Three of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Heartbreak, sorrow, betrayal, pain",
+    "reversedKeywords": "Healing, forgiveness",
+    "name": "Draupadi",
+    "notes": "Suffering through betrayal and the power of dignified endurance",
+    "imagePath": "cards/swords/three_swords.png"
+  },
+  {
+    "id": 53,
+    "cardType": "Four of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Rest, recuperation, meditation, recovery",
+    "reversedKeywords": "Restlessness",
+    "name": "Patanjali",
+    "notes": "Stillness, disciplined inward focus, and mental recovery",
+    "imagePath": "cards/swords/four_swords.png"
+  },
+  {
+    "id": 54,
+    "cardType": "Five of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Conflict, defeat, winning at a cost",
+    "reversedKeywords": "Forgiveness",
+    "name": "Shakuni",
+    "notes": "Cunning conflict, tactical harm, and victory with a cost",
+    "imagePath": "cards/swords/five_swords.png"
+  },
+  {
+    "id": 55,
+    "cardType": "Six of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Transition, moving on, healing",
+    "reversedKeywords": "Resistance to change",
+    "name": "Bharata",
+    "notes": "Leaving turmoil behind, transition, and reluctant passage toward peace",
+    "imagePath": "cards/swords/six_swords.png"
+  },
+  {
+    "id": 56,
+    "cardType": "Seven of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Deception, strategy, sneakiness",
+    "reversedKeywords": "Coming clean",
+    "name": "Kamsa",
+    "notes": "Paranoia, secret plotting, and manipulative survival",
+    "imagePath": "cards/swords/seven_swords.png"
+  },
+  {
+    "id": 57,
+    "cardType": "Eight of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Feeling trapped, self-imposed limitations",
+    "reversedKeywords": "Release, empowerment",
+    "name": "Harishchandra",
+    "notes": "Bondage through self-imposed truth and the feeling of being trapped",
+    "imagePath": "cards/swords/eight_swords.png"
+  },
+  {
+    "id": 58,
+    "cardType": "Nine of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Anxiety, worry, fear, despair",
+    "reversedKeywords": "Hope, releasing anxiety",
+    "name": "Arjuna",
+    "notes": "Mental anguish, overwhelm, and crisis before clarity",
+    "imagePath": "cards/swords/nine_swords.png"
+  },
+  {
+    "id": 59,
+    "cardType": "Ten of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Rock bottom, painful ending, loss",
+    "reversedKeywords": "Recovery",
+    "name": "Abhimanyu",
+    "notes": "A tragic end, collapse, and the finality of defeat",
+    "imagePath": "cards/swords/ten_swords.png"
+  },
+  {
+    "id": 60,
+    "cardType": "Page of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Curiosity, vigilance, new ideas, communication",
+    "reversedKeywords": "Gossip, hasty words",
+    "name": "Kacha",
+    "notes": "Eager learning, alertness, and youthful questioning",
+    "imagePath": "cards/swords/page_swords.png"
+  },
+  {
+    "id": 61,
+    "cardType": "Knight of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Ambition, action, directness, intellect",
+    "reversedKeywords": "Recklessness",
+    "name": "Parashurama",
+    "notes": "Sharp action, forceful will, and relentless intellectual power",
+    "imagePath": "cards/swords/knight_swords.png"
+  },
+  {
+    "id": 62,
+    "cardType": "Queen of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Independence, clear boundaries, truth, honesty",
+    "reversedKeywords": "Bitterness",
+    "name": "Gargi",
+    "notes": "Clarity, independence, sharp inquiry, and fearless truth",
+    "imagePath": "cards/swords/queen_swords.png"
+  },
+  {
+    "id": 63,
+    "cardType": "King of Swords",
+    "arcana": "Swords (Air)",
+    "uprightKeywords": "Intellectual power, authority, truth, logic",
+    "reversedKeywords": "Tyranny",
+    "name": "Brihaspati",
+    "notes": "Authoritative wisdom, logic, counsel, and disciplined truth",
+    "imagePath": "cards/swords/king_swords.png"
+  },
+  {
+    "id": 64,
+    "cardType": "Ace of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "New inspiration, potential, creativity, passion",
+    "reversedKeywords": "Lack of energy, creative block",
+    "name": "Agni",
+    "notes": "Divine spark of action",
+    "imagePath": "cards/wands/ace_wands.png"
+  },
+  {
+    "id": 65,
+    "cardType": "Two of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Planning, future vision, discovery, decisions",
+    "reversedKeywords": "Fear of unknown, indecision",
+    "name": "Arjuna",
+    "notes": "Warrior planning his path",
+    "imagePath": "cards/wands/two_wands.png"
+  },
+  {
+    "id": 66,
+    "cardType": "Three of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Expansion, foresight, exploration, waiting",
+    "reversedKeywords": "Delays, lack of foresight",
+    "name": "Rama",
+    "notes": "Exiled prince's foresight",
+    "imagePath": "cards/wands/three_wands.png"
+  },
+  {
+    "id": 67,
+    "cardType": "Four of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Celebration, harmony, home, stability, community",
+    "reversedKeywords": "Instability at home",
+    "name": "Krishna",
+    "notes": "Divine play and harmony",
+    "imagePath": "cards/wands/four_wands.png"
+  },
+  {
+    "id": 68,
+    "cardType": "Five of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Competition, conflict, rivalry, challenge",
+    "reversedKeywords": "Avoiding conflict",
+    "name": "Karna",
+    "notes": "Epic rivalry",
+    "imagePath": "cards/wands/five_wands.png"
+  },
+  {
+    "id": 69,
+    "cardType": "Six of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Victory, recognition, success, public acclaim",
+    "reversedKeywords": "Delayed success",
+    "name": "Indra",
+    "notes": "Success after battle",
+    "imagePath": "cards/wands/six_wands.png"
+  },
+  {
+    "id": 70,
+    "cardType": "Seven of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Defense, perseverance, standing your ground",
+    "reversedKeywords": "Overwhelm, feeling defeated",
+    "name": "Bhishma",
+    "notes": "Unyielding defense",
+    "imagePath": "cards/wands/seven_wands.png"
+  },
+  {
+    "id": 71,
+    "cardType": "Eight of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Rapid movement, speed, action, momentum",
+    "reversedKeywords": "Delays, frustration",
+    "name": "Garuda",
+    "notes": "Speed and divine will",
+    "imagePath": "cards/wands/eight_wands.png"
+  },
+  {
+    "id": 72,
+    "cardType": "Nine of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Resilience, persistence, defensive position",
+    "reversedKeywords": "Paranoia, exhaustion",
+    "name": "Hanuman",
+    "notes": "Never-yielding resilience",
+    "imagePath": "cards/wands/nine_wands.png"
+  },
+  {
+    "id": 73,
+    "cardType": "Ten of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Burden, responsibility, hard work, overload",
+    "reversedKeywords": "Releasing burden",
+    "name": "Bhim",
+    "notes": "Weight of responsibility",
+    "imagePath": "cards/wands/ten_wands.png"
+  },
+  {
+    "id": 74,
+    "cardType": "Page of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Enthusiasm, new ideas, exploration, messages",
+    "reversedKeywords": "Lack of direction",
+    "name": "Young Krishna",
+    "notes": "Joyful exploration",
+    "imagePath": "cards/wands/page_wands.png"
+  },
+  {
+    "id": 75,
+    "cardType": "Knight of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Action, adventure, passion, impulsiveness",
+    "reversedKeywords": "Recklessness, haste",
+    "name": "Arjuna",
+    "notes": "Dharma-driven action",
+    "imagePath": "cards/wands/knight_wands.png"
+  },
+  {
+    "id": 76,
+    "cardType": "Queen of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Confidence, warmth, determination, charisma",
+    "reversedKeywords": "Selfishness, burnout",
+    "name": "Draupadi",
+    "notes": "Unyielding passion",
+    "imagePath": "cards/wands/queen_wands.png"
+  },
+  {
+    "id": 77,
+    "cardType": "King of Wands",
+    "arcana": "Wands (Fire)",
+    "uprightKeywords": "Leadership, vision, entrepreneurship, boldness",
+    "reversedKeywords": "Impulsiveness",
+    "name": "Yudhishthira",
+    "notes": "Dharma-based leadership",
+    "imagePath": "cards/wands/king_wands.png"
+  }
+]

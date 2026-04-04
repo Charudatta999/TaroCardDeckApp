@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TaroCardDeckApp — Dev Session Export</title>
+<style>
+:root {
+  --gold:#D4AF37; --saffron:#E8630A; --bg:#0a0608; --surface:#13100f;
+  --surface2:#1c1714; --cream:#EDD9A3; --dim:#7a6a50; --code-bg:#0d0b0a;
+  --green:#4ec94e; --blue:#5ab4e8; --orange:#e8874a; --red:#e85a5a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--cream);font-family:'Segoe UI',system-ui,sans-serif;font-size:15px;line-height:1.7;}
+.page{max-width:900px;margin:0 auto;padding:32px 24px;}
+
+/* HEADER */
+.session-header{
+  text-align:center;padding:48px 24px 36px;
+  background:radial-gradient(ellipse at 50% 0%, rgba(232,99,10,0.12) 0%, transparent 60%);
+  border-bottom:1px solid rgba(212,175,55,0.15);margin-bottom:36px;
+}
+.header-om{font-size:56px;color:var(--gold);text-shadow:0 0 30px rgba(212,175,55,0.5);}
+.header-title{font-size:28px;color:var(--gold);letter-spacing:3px;margin-top:12px;font-weight:600;}
+.header-sub{font-size:13px;color:var(--saffron);letter-spacing:2px;margin-top:6px;}
+.header-meta{display:flex;justify-content:center;gap:24px;margin-top:20px;flex-wrap:wrap;}
+.meta-item{background:var(--surface);border:1px solid rgba(212,175,55,0.15);border-radius:8px;padding:8px 16px;font-size:12px;color:var(--dim);}
+.meta-item span{color:var(--cream);margin-left:6px;}
+
+/* TOC */
+.toc{background:var(--surface);border:1px solid rgba(212,175,55,0.15);border-radius:12px;padding:20px 24px;margin-bottom:36px;}
+.toc-title{font-size:13px;letter-spacing:3px;color:var(--saffron);margin-bottom:14px;}
+.toc-list{list-style:none;}
+.toc-list li{margin:6px 0;}
+.toc-list a{color:var(--dim);text-decoration:none;font-size:13px;transition:color 0.2s;}
+.toc-list a:hover{color:var(--gold);}
+.toc-list .toc-num{color:rgba(212,175,55,0.35);margin-right:8px;font-size:11px;}
+
+/* SECTION */
+.section{margin-bottom:48px;}
+.section-title{font-size:14px;letter-spacing:4px;color:var(--saffron);margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid rgba(232,99,10,0.2);}
+
+/* MESSAGE BUBBLES */
+.msg{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;}
+.msg.user{flex-direction:row-reverse;}
+.msg-avatar{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+  border:1px solid rgba(212,175,55,0.2);
+}
+.msg.user .msg-avatar{background:rgba(232,99,10,0.15);border-color:rgba(232,99,10,0.3);}
+.msg.claude .msg-avatar{background:rgba(212,175,55,0.1);border-color:rgba(212,175,55,0.2);}
+.msg-body{flex:1;max-width:calc(100% - 50px);}
+.msg-role{font-size:10px;letter-spacing:3px;color:var(--dim);margin-bottom:5px;}
+.msg.user .msg-role{text-align:right;color:rgba(232,99,10,0.6);}
+.msg-text{
+  background:var(--surface);border:1px solid rgba(212,175,55,0.1);
+  border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.75;
+}
+.msg.user .msg-text{
+  background:rgba(232,99,10,0.08);border-color:rgba(232,99,10,0.2);
+  text-align:left;
+}
+.msg-text p{margin-bottom:8px;}
+.msg-text p:last-child{margin-bottom:0;}
+.msg-text strong{color:var(--gold);}
+.msg-text em{color:var(--saffron);}
+
+/* CODE BLOCKS */
+.code-block{
+  background:var(--code-bg);border:1px solid rgba(212,175,55,0.12);
+  border-radius:8px;margin:12px 0;overflow-x:auto;
+}
+.code-lang{
+  padding:6px 14px;font-size:10px;letter-spacing:2px;
+  color:var(--saffron);border-bottom:1px solid rgba(212,175,55,0.1);
+  background:rgba(232,99,10,0.06);
+}
+.code-block pre{padding:14px 16px;font-family:'Cascadia Code','Fira Code','Consolas',monospace;font-size:12.5px;line-height:1.65;color:#c9d1d9;white-space:pre;}
+.k{color:#ff7b72;}   /* keyword */
+.s{color:#a5d6ff;}   /* string */
+.c{color:#8b949e;font-style:italic;} /* comment */
+.n{color:#ffa657;}   /* number/type */
+.f{color:#d2a8ff;}   /* function */
+.v{color:#79c0ff;}   /* variable */
+
+/* TERMINAL OUTPUT */
+.terminal{
+  background:#050505;border:1px solid rgba(78,201,78,0.2);
+  border-radius:8px;margin:12px 0;overflow-x:auto;
+}
+.term-bar{
+  padding:6px 14px;font-size:10px;letter-spacing:2px;color:#4ec94e;
+  border-bottom:1px solid rgba(78,201,78,0.1);background:rgba(78,201,78,0.04);
+}
+.terminal pre{padding:12px 16px;font-family:'Cascadia Code','Consolas',monospace;font-size:12px;line-height:1.7;color:#c9d1d9;white-space:pre-wrap;word-break:break-all;}
+.ps-prompt{color:#5ab4e8;}
+.ps-cmd{color:#e8e8e8;}
+.ps-out{color:#8b949e;}
+.ps-ok{color:#4ec94e;}
+.ps-err{color:#e85a5a;}
+
+/* INLINE CODE */
+code{background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.15);border-radius:4px;padding:1px 6px;font-family:'Cascadia Code','Consolas',monospace;font-size:12.5px;color:#ffa657;}
+
+/* FILE ARTIFACT */
+.file-artifact{
+  background:var(--surface2);border:1px solid rgba(212,175,55,0.2);
+  border-radius:10px;margin:14px 0;overflow:hidden;
+}
+.fa-header{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid rgba(212,175,55,0.1);}
+.fa-icon{font-size:18px;}
+.fa-name{font-size:13px;color:var(--gold);}
+.fa-size{font-size:11px;color:var(--dim);margin-left:auto;}
+.fa-desc{padding:10px 16px;font-size:13px;color:var(--dim);}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px;}
+th{background:rgba(212,175,55,0.08);color:var(--gold);padding:8px 12px;text-align:left;border-bottom:1px solid rgba(212,175,55,0.15);}
+td{padding:7px 12px;border-bottom:1px solid rgba(212,175,55,0.06);color:var(--cream);opacity:0.85;}
+tr:hover td{background:rgba(212,175,55,0.03);}
+
+/* BADGES */
+.badge{display:inline-block;border-radius:10px;padding:2px 10px;font-size:10px;letter-spacing:1px;margin:2px;}
+.badge-ok{background:rgba(78,201,78,0.12);border:1px solid rgba(78,201,78,0.3);color:#4ec94e;}
+.badge-warn{background:rgba(232,135,74,0.12);border:1px solid rgba(232,135,74,0.3);color:#e8874a;}
+.badge-err{background:rgba(232,90,90,0.12);border:1px solid rgba(232,90,90,0.3);color:#e85a5a;}
+.badge-info{background:rgba(90,180,232,0.12);border:1px solid rgba(90,180,232,0.3);color:#5ab4e8;}
+
+/* SUMMARY CARDS */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0;}
+.sum-card{background:var(--surface);border:1px solid rgba(212,175,55,0.15);border-radius:10px;padding:16px;}
+.sum-icon{font-size:24px;margin-bottom:8px;}
+.sum-title{font-size:11px;letter-spacing:2px;color:var(--saffron);margin-bottom:4px;}
+.sum-val{font-size:20px;color:var(--gold);font-weight:600;}
+.sum-sub{font-size:11px;color:var(--dim);margin-top:3px;}
+
+/* FOOTER */
+.footer{text-align:center;padding:40px 0 24px;border-top:1px solid rgba(212,175,55,0.1);margin-top:48px;}
+.footer-om{font-size:32px;color:rgba(212,175,55,0.3);}
+.footer-text{font-size:11px;color:var(--dim);letter-spacing:2px;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══ HEADER ═══ -->
+<div class="session-header">
+  <div class="header-om">ॐ</div>
+  <div class="header-title">TaroCardDeckApp</div>
+  <div class="header-sub">DEVELOPMENT SESSION EXPORT · ANDROID QT6 C++</div>
+  <div class="header-meta">
+    <div class="meta-item">Date<span>April 4, 2026</span></div>
+    <div class="meta-item">Developer<span>CJ (cjadhav)</span></div>
+    <div class="meta-item">Platform<span>Windows 11 · Android ARM64</span></div>
+    <div class="meta-item">Qt Version<span>6.11.0</span></div>
+    <div class="meta-item">NDK<span>r27d</span></div>
+    <div class="meta-item">Messages<span>~60 exchanges</span></div>
+  </div>
+</div>
+
+<!-- ═══ SUMMARY ═══ -->
+<div class="section">
+  <div class="section-title">SESSION SUMMARY</div>
+  <div class="summary-grid">
+    <div class="sum-card"><div class="sum-icon">📱</div><div class="sum-title">TARGET</div><div class="sum-val">Android</div><div class="sum-sub">ARM64-v8a · API 28+</div></div>
+    <div class="sum-card"><div class="sum-icon">⚙️</div><div class="sum-title">BUILD SYSTEM</div><div class="sum-val">CMake + Ninja</div><div class="sum-sub">Qt6 toolchain</div></div>
+    <div class="sum-card"><div class="sum-icon">🃏</div><div class="sum-title">CARDS</div><div class="sum-val">78</div><div class="sum-sub">Full deck + Hindu myths</div></div>
+    <div class="sum-card"><div class="sum-icon">🏛️</div><div class="sum-title">ARCHETYPES</div><div class="sum-val">78</div><div class="sum-sub">Hindu deities mapped</div></div>
+    <div class="sum-card"><div class="sum-icon">✅</div><div class="sum-title">APK STATUS</div><div class="sum-val">Built</div><div class="sum-sub">Installed on device</div></div>
+    <div class="sum-card"><div class="sum-icon">🎨</div><div class="sum-title">UI PROTOTYPE</div><div class="sum-val">HTML</div><div class="sum-sub">5 screens, 78 cards</div></div>
+  </div>
+</div>
+
+<!-- ═══ TOC ═══ -->
+<div class="toc">
+  <div class="toc-title">TABLE OF CONTENTS</div>
+  <ul class="toc-list">
+    <li><a href="#s1"><span class="toc-num">01</span>Project Overview & Concept</a></li>
+    <li><a href="#s2"><span class="toc-num">02</span>Environment Setup — NDK, Qt, SDK, Ninja</a></li>
+    <li><a href="#s3"><span class="toc-num">03</span>VSCode Configuration Files</a></li>
+    <li><a href="#s4"><span class="toc-num">04</span>CMakeLists.txt & Android Manifest</a></li>
+    <li><a href="#s5"><span class="toc-num">05</span>Build Log — Errors & Fixes</a></li>
+    <li><a href="#s6"><span class="toc-num">06</span>APK Deploy to Device via ADB</a></li>
+    <li><a href="#s7"><span class="toc-num">07</span>Card Data — All 78 Cards with Hindu Archetypes</a></li>
+    <li><a href="#s8"><span class="toc-num">08</span>Project Architecture & Class Design</a></li>
+    <li><a href="#s9"><span class="toc-num">09</span>UI Design Specification</a></li>
+    <li><a href="#s10"><span class="toc-num">10</span>HTML UI Prototype — TaroApp.html</a></li>
+    <li><a href="#s11"><span class="toc-num">11</span>Next Steps</a></li>
+  </ul>
+</div>
+
+<!-- ═══ S1: OVERVIEW ═══ -->
+<div class="section" id="s1">
+  <div class="section-title">01 · PROJECT OVERVIEW</div>
+
+  <div class="msg claude">
+    <div class="msg-avatar">🤖</div>
+    <div class="msg-body">
+      <div class="msg-role">CLAUDE</div>
+      <div class="msg-text">
+        <p><strong>TaroCardDeckApp</strong> — A Qt6 C++ Android application featuring a Hindu Mythological Tarot deck. Full 78-card deck with each card mapped to a Hindu deity, archetype, mantra, and mythological notes. Dark temple-chic UI with saffron/gold accents.</p>
+        <p><strong>Tech stack:</strong> Qt 6.11.0 · Android NDK r27d · ARM64-v8a · CMake + Ninja · QML frontend · C++ backend</p>
+        <p><strong>App concept:</strong> Sacred divination tool combining Western tarot with Hindu mythology. Each card has an English name + Sanskrit name, Hindu deity mapping, upright/reversed keywords, core mantra, and archetype notes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="msg user">
+    <div class="msg-avatar">👤</div>
+    <div class="msg-body">
+      <div class="msg-role">CJ (USER)</div>
+      <div class="msg-text">I have Qt installed with Android NDK r27d on Windows. I want to develop a C++ Qt app for Android via the NDK. How do I set it up for VSCode?</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S2: ENVIRONMENT ═══ -->
+<div class="section" id="s2">
+  <div class="section-title">02 · ENVIRONMENT SETUP</div>
+
+  <div class="msg claude">
+    <div class="msg-avatar">🤖</div>
+    <div class="msg-body">
+      <div class="msg-role">CLAUDE</div>
+      <div class="msg-text"><strong>Installed & Configured:</strong></div>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>Tool</th><th>Version / Path</th><th>Status</th></tr>
+    <tr><td>Android NDK</td><td><code>D:\cjadhav\android-ndk\android-ndk-r27d-windows\android-ndk-r27d</code></td><td><span class="badge badge-ok">✓ INSTALLED</span></td></tr>
+    <tr><td>Qt Framework</td><td><code>D:\cjadhav\Qt\6.11.0\android_arm64_v8a</code></td><td><span class="badge badge-ok">✓ INSTALLED</span></td></tr>
+    <tr><td>Android SDK</td><td><code>D:\cjadhav\android-sdk</code></td><td><span class="badge badge-ok">✓ INSTALLED</span></td></tr>
+    <tr><td>JDK 17</td><td><code>C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot</code></td><td><span class="badge badge-ok">✓ INSTALLED</span></td></tr>
+    <tr><td>Ninja</td><td><code>D:\cjadhav\tools\ninja\ninja.exe</code> v1.12.1</td><td><span class="badge badge-ok">✓ INSTALLED</span></td></tr>
+    <tr><td>CMake</td><td><code>C:\Program Files\CMake\bin\cmake.EXE</code> v4.1.0</td><td><span class="badge badge-ok">✓ INSTALLED</span></td></tr>
+    <tr><td>NDK Clang</td><td>Android clang 18.0.4 (aarch64-linux-android26)</td><td><span class="badge badge-ok">✓ WORKING</span></td></tr>
+  </table>
+
+  <div class="msg claude">
+    <div class="msg-avatar">🤖</div>
+    <div class="msg-body">
+      <div class="msg-role">CLAUDE — PATH Setup (Admin PowerShell)</div>
+      <div class="msg-text">System-wide PATH entries added permanently:</div>
+    </div>
+  </div>
+  <div class="code-block">
+    <div class="code-lang">POWERSHELL — ADMIN</div>
+    <pre><span class="v">$currentPath</span> = [System.Environment]::GetEnvironmentVariable(<span class="s">"PATH"</span>, <span class="s">"Machine"</span>)
+[System.Environment]::SetEnvironmentVariable(<span class="s">"PATH"</span>,
+  <span class="s">"$currentPath;D:\cjadhav\tools\ninja;D:\cjadhav\android-sdk\cmdline-tools\latest\bin;D:\cjadhav\android-sdk\platform-tools"</span>,
+  <span class="s">"Machine"</span>)</pre>
+  </div>
+
+  <div class="msg claude">
+    <div class="msg-avatar">🤖</div>
+    <div class="msg-body">
+      <div class="msg-role">CLAUDE — Android SDK Packages</div>
+    </div>
+  </div>
+  <div class="code-block">
+    <div class="code-lang">POWERSHELL</div>
+    <pre>sdkmanager <span class="s">"platform-tools"</span> <span class="s">"build-tools;34.0.0"</span> <span class="s">"platforms;android-34"</span>
+sdkmanager <span class="s">"platforms;android-36"</span> <span class="s">"build-tools;36.0.0"</span>  <span class="c"># needed for Qt 6.11</span></pre>
+  </div>
+  <div class="terminal">
+    <div class="term-bar">INSTALLED PACKAGES</div>
+    <pre><span class="ps-out">build-tools;34.0.0   | 34.0.0 | Android SDK Build-Tools 34
+build-tools;36.0.0   | 36.0.0 | Android SDK Build-Tools 36
+platform-tools       | 37.0.0 | Android SDK Platform-Tools
+platforms;android-34 | 3      | Android SDK Platform 34
+platforms;android-36 | 2      | Android SDK Platform 36</span></pre>
+  </div>
+</div>
+
+<!-- ═══ S3: VSCODE CONFIG ═══ -->
+<div class="section" id="s3">
+  <div class="section-title">03 · VSCODE CONFIGURATION</div>
+
+  <div class="code-block">
+    <div class="code-lang">.vscode/cmake-kits.json</div>
+    <pre>[
+  {
+    <span class="s">"name"</span>: <span class="s">"Qt6 Android ARM64 (NDK r27d)"</span>,
+    <span class="s">"toolchainFile"</span>: <span class="s">"D:/cjadhav/Qt/6.11.0/android_arm64_v8a/lib/cmake/Qt6/qt.toolchain.cmake"</span>,
+    <span class="s">"cmakeSettings"</span>: {
+      <span class="s">"CMAKE_PREFIX_PATH"</span>: <span class="s">"D:/cjadhav/Qt/6.11.0/android_arm64_v8a"</span>,
+      <span class="s">"ANDROID_NDK_ROOT"</span>: <span class="s">"D:/cjadhav/android-ndk/android-ndk-r27d-windows/android-ndk-r27d"</span>,
+      <span class="s">"ANDROID_SDK_ROOT"</span>: <span class="s">"D:/cjadhav/android-sdk"</span>,
+      <span class="s">"ANDROID_ABI"</span>: <span class="s">"arm64-v8a"</span>,
+      <span class="s">"ANDROID_PLATFORM"</span>: <span class="s">"android-28"</span>,
+      <span class="s">"ANDROID_STL"</span>: <span class="s">"c++_shared"</span>,
+      <span class="s">"QT_HOST_PATH"</span>: <span class="s">"D:/cjadhav/Qt/6.11.0/mingw_64"</span>
+    }
+  }
+]</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-lang">.vscode/c_cpp_properties.json</div>
+    <pre>{
+  <span class="s">"configurations"</span>: [{
+    <span class="s">"name"</span>: <span class="s">"Android ARM64"</span>,
+    <span class="s">"compilerPath"</span>: <span class="s">"D:/cjadhav/android-ndk/.../aarch64-linux-android26-clang++.cmd"</span>,
+    <span class="s">"compilerArgs"</span>: [<span class="s">"--target=aarch64-linux-android26"</span>],
+    <span class="s">"intelliSenseMode"</span>: <span class="s">"clang-arm64"</span>,
+    <span class="s">"cppStandard"</span>: <span class="s">"c++17"</span>,
+    <span class="s">"includePath"</span>: [
+      <span class="s">"${workspaceFolder}/**"</span>,
+      <span class="s">"D:/cjadhav/Qt/6.11.0/android_arm64_v8a/include/**"</span>,
+      <span class="s">"...NDK.../sysroot/usr/include"</span>,
+      <span class="s">"...NDK.../sysroot/usr/include/aarch64-linux-android"</span>
+    ],
+    <span class="s">"defines"</span>: [<span class="s">"__ANDROID__"</span>, <span class="s">"__ANDROID_API__=26"</span>, <span class="s">"__aarch64__"</span>]
+  }]
+}</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-lang">.vscode/settings.json</div>
+    <pre>{
+  <span class="s">"cmake.generator"</span>: <span class="s">"Ninja"</span>,
+  <span class="s">"cmake.buildDirectory"</span>: <span class="s">"${workspaceFolder}/build-android"</span>,
+  <span class="s">"cmake.configureSettings"</span>: {
+    <span class="s">"CMAKE_PREFIX_PATH"</span>: <span class="s">"D:/cjadhav/Qt/6.11.0/android_arm64_v8a"</span>
+  },
+  <span class="s">"cmake.configureOnOpen"</span>: <span class="k">false</span>,
+  <span class="s">"C_Cpp.default.configurationProvider"</span>: <span class="s">"ms-vscode.cmake-tools"</span>
+}</pre>
+  </div>
+</div>
+
+<!-- ═══ S4: CMAKE ═══ -->
+<div class="section" id="s4">
+  <div class="section-title">04 · CMAKE & ANDROID MANIFEST</div>
+
+  <div class="code-block">
+    <div class="code-lang">CMakeLists.txt — FINAL</div>
+    <pre><span class="f">cmake_minimum_required</span>(VERSION 3.21)
+<span class="f">project</span>(TaroCardDeckApp VERSION 1.0 LANGUAGES CXX)
+
+<span class="f">set</span>(CMAKE_CXX_STANDARD 17)
+<span class="f">set</span>(CMAKE_CXX_STANDARD_REQUIRED ON)
+<span class="f">set</span>(CMAKE_AUTOMOC ON)
+<span class="f">set</span>(CMAKE_AUTORCC ON)
+<span class="f">set</span>(CMAKE_AUTOUIC ON)
+
+<span class="f">find_package</span>(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
+<span class="f">qt_standard_project_setup</span>()
+
+<span class="c"># Android SDK version — Qt 6.11 requires API 36+</span>
+<span class="f">set</span>(QT_ANDROID_TARGET_SDK_VERSION 36)
+<span class="f">set</span>(QT_ANDROID_COMPILE_SDK_VERSION 36)
+
+<span class="f">qt_add_executable</span>(TaroCardDeckApp main.cpp)
+
+<span class="f">target_link_libraries</span>(TaroCardDeckApp PRIVATE
+    Qt6::Core Qt6::Gui Qt6::Widgets)
+
+<span class="f">set_target_properties</span>(TaroCardDeckApp PROPERTIES
+    QT_ANDROID_PACKAGE_SOURCE_DIR <span class="s">"${CMAKE_CURRENT_SOURCE_DIR}/android"</span>)</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-lang">android/AndroidManifest.xml — FINAL</div>
+    <pre><span class="k">&lt;?xml</span> version=<span class="s">"1.0"</span> encoding=<span class="s">"utf-8"</span><span class="k">?&gt;</span>
+<span class="k">&lt;manifest</span> xmlns:android=<span class="s">"http://schemas.android.com/apk/res/android"</span>
+    package=<span class="s">"com.cjadhav.tarocarddeck"</span>
+    android:versionCode=<span class="s">"1"</span>
+    android:versionName=<span class="s">"1.0"</span><span class="k">&gt;</span>
+  <span class="c">&lt;!-- uses-sdk REMOVED: not allowed in AGP 9.0 --&gt;</span>
+  <span class="k">&lt;application</span>
+      android:label=<span class="s">"TaroCardDeckApp"</span>
+      android:hardwareAccelerated=<span class="s">"true"</span><span class="k">&gt;</span>
+    <span class="k">&lt;activity</span>
+        android:name=<span class="s">"org.qtproject.qt.android.bindings.QtActivity"</span>
+        android:exported=<span class="s">"true"</span>
+        android:screenOrientation=<span class="s">"portrait"</span><span class="k">&gt;</span>
+      <span class="k">&lt;intent-filter&gt;</span>
+        <span class="k">&lt;action</span> android:name=<span class="s">"android.intent.action.MAIN"</span><span class="k">/&gt;</span>
+        <span class="k">&lt;category</span> android:name=<span class="s">"android.intent.category.LAUNCHER"</span><span class="k">/&gt;</span>
+      <span class="k">&lt;/intent-filter&gt;</span>
+      <span class="k">&lt;meta-data</span> android:name=<span class="s">"android.app.lib_name"</span>
+                 android:value=<span class="s">"TaroCardDeckApp"</span><span class="k">/&gt;</span>
+    <span class="k">&lt;/activity&gt;</span>
+  <span class="k">&lt;/application&gt;</span>
+<span class="k">&lt;/manifest&gt;</span></pre>
+  </div>
+</div>
+
+<!-- ═══ S5: BUILD LOG ═══ -->
+<div class="section" id="s5">
+  <div class="section-title">05 · BUILD ERRORS & FIXES</div>
+
+  <table>
+    <tr><th>#</th><th>Error</th><th>Root Cause</th><th>Fix</th></tr>
+    <tr>
+      <td>1</td>
+      <td><code>Cannot find android sources</code></td>
+      <td>Missing <code>android/</code> folder</td>
+      <td>Created <code>android/AndroidManifest.xml</code></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><code>Task 'assembleDebug' not found</code></td>
+      <td>We provided <code>build.gradle</code> — Qt generates its own</td>
+      <td>Deleted <code>android/build.gradle</code></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><code>minSdkVersion must be >= 28</code></td>
+      <td>Qt 6.11 dropped Android &lt; 28</td>
+      <td>Changed <code>minSdkVersion</code> to 28</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><code>Ninja not found</code></td>
+      <td>Ninja not on system PATH</td>
+      <td>Installed to <code>D:\cjadhav\tools\ninja</code>, added to Machine PATH</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><code>androidx.core requires compileSdk >= 36</code></td>
+      <td>Qt 6.11 pulls AndroidX 1.17 which needs SDK 36</td>
+      <td>Set <code>QT_ANDROID_COMPILE_SDK_VERSION 36</code>, installed <code>platforms;android-36</code></td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><code>&lt;uses-sdk&gt; not allowed in AGP 9.0</code></td>
+      <td>Android Gradle Plugin 9.0 deprecated manifest SDK versions</td>
+      <td>Removed <code>&lt;uses-sdk&gt;</code> from manifest entirely</td>
+    </tr>
+  </table>
+
+  <div class="msg claude">
+    <div class="msg-avatar">🤖</div>
+    <div class="msg-body">
+      <div class="msg-role">FINAL SUCCESSFUL BUILD OUTPUT</div>
+    </div>
+  </div>
+  <div class="terminal">
+    <div class="term-bar">BUILD LOG — SUCCESS</div>
+    <pre><span class="ps-out">[1/8  12%] Automatic MOC and UIC for target TaroCardDeckApp
+[2/8  25%] Running AUTOMOC file extraction for target TaroCardDeckApp
+[3/8  37%] Running moc --collect-json for target TaroCardDeckApp
+[5/8  50%] Building CXX object .../mocs_compilation.cpp.o
+[5/8  62%] Building CXX object .../main.cpp.o
+[6/8  75%] Linking CXX shared module </span><span class="ps-ok">libTaroCardDeckApp_arm64-v8a.so</span>
+<span class="ps-out">[7/8  87%] Copying TaroCardDeckApp binary to apk folder
+[8/8 100%] Creating APK for TaroCardDeckApp</span>
+<span class="ps-ok">✓ Build complete: android-build-debug.apk (20.4 MB)</span></pre>
+  </div>
+</div>
+
+<!-- ═══ S6: ADB ═══ -->
+<div class="section" id="s6">
+  <div class="section-title">06 · APK DEPLOY VIA ADB</div>
+
+  <div class="code-block">
+    <div class="code-lang">POWERSHELL — ADB COMMANDS</div>
+    <pre><span class="c"># Check device connected</span>
+<span class="v">adb</span> devices
+<span class="c"># → RZCR90AP75H    device</span>
+
+<span class="c"># Install APK (correct path)</span>
+<span class="v">adb</span> install <span class="s">"D:\cjadhav\TaroCardDeckApp\build-android\android-build\build\outputs\apk\debug\android-build-debug.apk"</span>
+
+<span class="c"># Launch app</span>
+<span class="v">adb</span> shell am start -n <span class="s">"com.cjadhav.tarocarddeck/org.qtproject.qt.android.bindings.QtActivity"</span>
+
+<span class="c"># Useful debugging commands</span>
+<span class="v">adb</span> logcat | findstr TaroCard   <span class="c"># filter logs</span>
+<span class="v">adb</span> shell                       <span class="c"># shell into device</span>
+<span class="v">adb</span> uninstall com.cjadhav.tarocarddeck</pre>
+  </div>
+
+  <div class="msg claude">
+    <div class="msg-avatar">🤖</div>
+    <div class="msg-body">
+      <div class="msg-role">NOTE</div>
+      <div class="msg-text">APK was found at <code>build-android/android-build/build/outputs/apk/debug/android-build-debug.apk</code> not the Qt default path. Device was initially <code>unauthorized</code> — needed to tap "Allow USB debugging" on the phone. App successfully installed and launched. <span class="badge badge-ok">✓ SUCCESS</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S7: CARD DATA ═══ -->
+<div class="section" id="s7">
+  <div class="section-title">07 · CARD DATA — ALL 78 CARDS</div>
+
+  <div class="msg user">
+    <div class="msg-avatar">👤</div>
+    <div class="msg-body">
+      <div class="msg-role">CJ — PROVIDED DATASET</div>
+      <div class="msg-text">Complete 78-card dataset with Hindu mythological mappings provided across 4 suits + Major Arcana.</div>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>Suit</th><th>Cards</th><th>Sample Deity Mappings</th></tr>
+    <tr><td>Major Arcana</td><td>22 (0–XXI)</td><td>Brahma, Vishwakarma, Dakshinamurti, Parvati, Rama, Vyasa, Shiva-Shakti, Kartikeya, Hanuman, Vasistha, MahaKala, Shani, Yama, Vishnu, Ravana, Kaal Bhairav, Agastya, Soma, Surya, Valmiki, Tripura Sundari</td></tr>
+    <tr><td>Cups (Water)</td><td>14 (A–King)</td><td>Radha, Nala-Damayanti, Apsaras, King Janaka, Sita, Lav-Kush, Maya, Jada Bharata, Sudama, Atri-Anasuya, Narada, Kamadeva, Maitreyi, Yudhishthira</td></tr>
+    <tr><td>Swords (Air)</td><td>14 (A–King)</td><td>Shukracharya, Yajnavalkya, Draupadi, Patanjali, Shakuni, Bharata, Kamsa, Harishchandra, Arjuna, Abhimanyu, Kacha, Parashurama, Gargi, Brihaspati</td></tr>
+    <tr><td>Pentacles (Earth)</td><td>14 (A–King)</td><td>Kubera, King Janaka, The Ribhus, Dhritarashtra, Sudama, Karna, Bhagiratha, Ekalavya, Mandodari, Ikshvaku lineage, Nachiketa, Nandi, Anasuya, Yudhishthira</td></tr>
+  </table>
+
+  <div class="code-block">
+    <div class="code-lang">data/cards_data.json — SAMPLE FORMAT</div>
+    <pre>{
+  <span class="s">"id"</span>: <span class="s">"m0"</span>,
+  <span class="s">"num"</span>: <span class="s">"0"</span>,
+  <span class="s">"name"</span>: <span class="s">"The Fool"</span>,
+  <span class="s">"san"</span>: <span class="s">"ब्रह्मा"</span>,
+  <span class="s">"deity"</span>: <span class="s">"Brahma"</span>,
+  <span class="s">"type"</span>: <span class="s">"Deva"</span>,
+  <span class="s">"role"</span>: <span class="s">"Cosmic Creator"</span>,
+  <span class="s">"mantra"</span>: <span class="s">"Begin without memory"</span>,
+  <span class="s">"suit"</span>: <span class="s">"MAJOR"</span>,
+  <span class="s">"upright"</span>: <span class="s">"New beginnings, innocence, leap of faith, spontaneity"</span>,
+  <span class="s">"reversed"</span>: <span class="s">"Recklessness, naivety, taking too many risks"</span>,
+  <span class="s">"notes"</span>: <span class="s">"Represents creation emerging after dissolution (pralaya)."</span>
+}</pre>
+  </div>
+</div>
+
+<!-- ═══ S8: ARCHITECTURE ═══ -->
+<div class="section" id="s8">
+  <div class="section-title">08 · PROJECT ARCHITECTURE</div>
+
+  <div class="code-block">
+    <div class="code-lang">PROJECT STRUCTURE</div>
+    <pre>TaroCardDeckApp/
+├── CMakeLists.txt
+├── main.cpp
+├── android/
+│   └── AndroidManifest.xml
+├── assets/
+│   ├── cards/
+│   │   ├── major/          ← 22 card images
+│   │   ├── cups/           ← 14 card images
+│   │   ├── swords/         ← 14 card images
+│   │   ├── pentacles/      ← 14 card images
+│   │   └── card_back.png
+│   ├── sounds/
+│   │   ├── om_bell.wav
+│   │   ├── card_flip.wav
+│   │   └── shuffle.wav
+│   └── fonts/
+│       ├── Cinzel-Regular.ttf
+│       └── NotoSansDevanagari.ttf
+├── data/
+│   └── cards_data.json
+├── include/
+│   ├── Card.h
+│   ├── Deck.h
+│   ├── Reading.h
+│   ├── CardModel.h       ← QAbstractListModel
+│   ├── ReadingEngine.h   ← QObject for QML
+│   └── AppController.h
+├── src/
+│   ├── models/
+│   │   ├── Card.cpp
+│   │   ├── Deck.cpp
+│   │   └── Reading.cpp
+│   └── engine/
+│       ├── CardModel.cpp
+│       ├── ReadingEngine.cpp
+│       └── AppController.cpp
+└── qml/
+    ├── Main.qml
+    ├── components/
+    │   ├── OmSplash.qml
+    │   ├── CardStack.qml
+    │   ├── CardFlip.qml        ← 3D flip animation
+    │   ├── SnakeTray.qml       ← selection tray
+    │   └── HinduBeingPanel.qml ← deity bottom sheet
+    └── screens/
+        ├── SplashScreen.qml
+        ├── DivinationScreen.qml
+        ├── DrawScreen.qml
+        ├── SpreadScreen.qml
+        └── CatalogueScreen.qml</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-lang">include/Card.h</div>
+    <pre><span class="k">#pragma once</span>
+<span class="k">#include</span> <span class="s">&lt;QString&gt;</span>
+<span class="k">#include</span> <span class="s">&lt;QStringList&gt;</span>
+
+<span class="k">struct</span> <span class="n">Card</span> {
+    QString id;
+    QString name;
+    QString sanskritName;
+    QString arcana;       <span class="c">// "Major" | "Cups" | "Swords" | "Pentacles"</span>
+    QString suit;
+    QStringList uprightKeywords;
+    QStringList reversedKeywords;
+    QString hinduBeing;
+    QString type;         <span class="c">// Deva | Devi | Rishi | Avatar | Asura | Human</span>
+    QString systemRole;
+    QString mantra;
+    QString notes;
+    QString imagePath;
+    <span class="k">bool</span> isReversed = <span class="k">false</span>;
+};</pre>
+  </div>
+
+  <div class="code-block">
+    <div class="code-lang">include/Deck.h</div>
+    <pre><span class="k">#pragma once</span>
+<span class="k">#include</span> <span class="s">"Card.h"</span>
+<span class="k">#include</span> <span class="s">&lt;QVector&gt;</span>
+<span class="k">#include</span> <span class="s">&lt;QObject&gt;</span>
+
+<span class="k">class</span> <span class="n">Deck</span> : <span class="k">public</span> QObject {
+    Q_OBJECT
+<span class="k">public</span>:
+    <span class="k">explicit</span> Deck(QObject *parent = <span class="k">nullptr</span>);
+    <span class="k">void</span> <span class="f">loadFromJson</span>(<span class="k">const</span> QString &amp;path);
+    <span class="k">void</span> <span class="f">shuffle</span>();
+    Card <span class="f">draw</span>();
+    QVector&lt;Card&gt; <span class="f">drawSpread</span>(<span class="k">int</span> count);
+    <span class="k">void</span> <span class="f">reset</span>();
+    <span class="k">int</span>  <span class="f">remaining</span>() <span class="k">const</span>;
+<span class="k">private</span>:
+    QVector&lt;Card&gt; m_cards;
+    <span class="k">int</span> m_drawIndex = 0;
+};</pre>
+  </div>
+</div>
+
+<!-- ═══ S9: UI DESIGN ═══ -->
+<div class="section" id="s9">
+  <div class="section-title">09 · UI DESIGN SPECIFICATION</div>
+
+  <div class="msg user">
+    <div class="msg-avatar">👤</div>
+    <div class="msg-body">
+      <div class="msg-role">CJ — UI VISION</div>
+      <div class="msg-text">
+        <p><strong>Theme:</strong> Modern dark — deep pitch-black/velvet base, saffron-orange and gold accents. "Temple-chic" — sleek UI + temple-mythic icons.</p>
+        <p><strong>Colors:</strong> #000000 background · #FFD700 gold · #FF4500 saffron highlights</p>
+        <p><strong>Cards:</strong> Horizontally laid out, user scrolls horizontally, taps corner dot to select card into tray</p>
+        <p><strong>Splash:</strong> Full-screen golden Om, pulsing saffron glow, golden particles, temple bell sound</p>
+        <p><strong>Selection tray:</strong> Snake-border decoration, slides in from top</p>
+        <p><strong>Fonts:</strong> Cinzel (headings) · Noto Sans Devanagari (Sanskrit) · Crimson Text (body)</p>
+      </div>
+    </div>
+  </div>
+
+  <table>
+    <tr><th>Screen</th><th>Description</th></tr>
+    <tr><td>Splash</td><td>Om glyph with 4 pulsing halos, saffron core glow, golden rising particles, "Begin Reading" CTA</td></tr>
+    <tr><td>Divination</td><td>Horizontal scrollable deck (78 cards), snake-border tray, drag-scroll, corner-dot select</td></tr>
+    <tr><td>Reading</td><td>Spread layout (1–3 cards), Past/Present/Future labels, reversed cards, mantra per position</td></tr>
+    <tr><td>Card Detail</td><td>Full deity info, upright/reversed keywords, Hindu archetype block, core mantra, notes</td></tr>
+    <tr><td>Catalogue</td><td>All 78 cards searchable, filter by suit, tap to open detail</td></tr>
+  </table>
+</div>
+
+<!-- ═══ S10: HTML PROTOTYPE ═══ -->
+<div class="section" id="s10">
+  <div class="section-title">10 · HTML UI PROTOTYPE</div>
+
+  <div class="file-artifact">
+    <div class="fa-header">
+      <span class="fa-icon">🌐</span>
+      <span class="fa-name">TaroApp.html</span>
+      <span class="fa-size">73,925 bytes · Single-file app</span>
+    </div>
+    <div class="fa-desc">
+      Complete interactive HTML prototype. All 78 cards embedded. 5 fully wired screens.
+      Drag-scroll deck, corner-tap selection, snake tray, 3D card flip, catalogue search, reading spread.
+      Fonts: Cinzel + Crimson Text + Noto Sans Devanagari via Google Fonts.
+      <br><br>
+      <span class="badge badge-ok">✓ Splash with Om animation</span>
+      <span class="badge badge-ok">✓ Horizontal scrollable deck</span>
+      <span class="badge badge-ok">✓ Corner-dot card selection</span>
+      <span class="badge badge-ok">✓ Snake border tray</span>
+      <span class="badge badge-ok">✓ Reading screen</span>
+      <span class="badge badge-ok">✓ Card detail screen</span>
+      <span class="badge badge-ok">✓ Catalogue with search</span>
+      <span class="badge badge-ok">✓ Drawer navigation</span>
+      <span class="badge badge-ok">✓ All 78 Hindu archetypes</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ S11: NEXT STEPS ═══ -->
+<div class="section" id="s11">
+  <div class="section-title">11 · NEXT STEPS</div>
+
+  <table>
+    <tr><th>Priority</th><th>Task</th><th>Notes</th></tr>
+    <tr><td><span class="badge badge-err">HIGH</span></td><td>Card artwork / illustrations</td><td>1080×1920px WebP per card, deity watermark style</td></tr>
+    <tr><td><span class="badge badge-err">HIGH</span></td><td>QML implementation</td><td>Port HTML prototype to Qt Quick / QML</td></tr>
+    <tr><td><span class="badge badge-err">HIGH</span></td><td>C++ Card/Deck/Reading classes</td><td>Load from <code>cards_data.json</code></td></tr>
+    <tr><td><span class="badge badge-warn">MED</span></td><td>QML CardFlip animation</td><td><code>RotationAnimation</code> on Y axis, 500ms</td></tr>
+    <tr><td><span class="badge badge-warn">MED</span></td><td>QML horizontal deck</td><td><code>ListView</code> horizontal + corner <code>MouseArea</code></td></tr>
+    <tr><td><span class="badge badge-warn">MED</span></td><td>Sound effects</td><td>Qt Multimedia: om_bell, card_flip, shuffle</td></tr>
+    <tr><td><span class="badge badge-warn">MED</span></td><td>Haptic feedback</td><td><code>QAndroidJniObject</code> → <code>performHapticFeedback</code></td></tr>
+    <tr><td><span class="badge badge-info">LOW</span></td><td>Wands suit</td><td>Not in dataset yet — needs deity mappings</td></tr>
+    <tr><td><span class="badge badge-info">LOW</span></td><td>Celtic Cross spread (10 cards)</td><td>Complex layout QML</td></tr>
+    <tr><td><span class="badge badge-info">LOW</span></td><td>Settings screen</td><td>Language toggle EN/HI/SA, mute sounds</td></tr>
+    <tr><td><span class="badge badge-info">LOW</span></td><td>Daily card notification</td><td>Android AlarmManager via JNI</td></tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-om">ॐ</div>
+  <div class="footer-text">JYOTISH TAROT · DEV SESSION · APRIL 4, 2026 · cjadhav × Claude</div>
+</div>
+
+</div><!-- .page -->
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:claude.ai)",
+      "Bash(python -c \":*)",
+      "Bash(py -c \":*)",
+      "Bash(py -m pip install openpyxl -q)",
+      "Bash(ls /c/Python*/python.exe)",
+      "Read(//c/Users/Lenovo/AppData/Local/Programs/Python/**)",
+      "Bash(py -c \"import os; os.chdir\\(r''D:\\\\cjadhav\\\\TaroCardDeckApp''\\); print\\(os.getcwd\\(\\)\\); print\\(os.listdir\\(''.''\\)[:10]\\)\")",
+      "Bash(py -c \"import os; os.chdir\\(r''D:\\\\cjadhav\\\\TaroCardDeckApp''\\); print\\([f for f in os.listdir\\(''.''\\) if f.endswith\\(''.csv''\\)]\\)\")",
+      "Bash(py -c \"import json; data=json.load\\(open\\(r''D:\\\\cjadhav\\\\TaroCardDeckApp\\\\data\\\\cards_data.json'',''r'',encoding=''utf-8''\\)\\); print\\(f''Total: {len\\(data\\)}''\\); print\\(f''Last: {data[-1][\"\"name\"\"]}''\\)\")",
+      "Bash(cmake --version)",
+      "Bash(ninja --version)",
+      "Bash(where cl:*)",
+      "Bash(cmake -S \"D:/cjadhav/TaroCardDeckApp\" -B \"D:/cjadhav/TaroCardDeckApp/build-desktop\" -G Ninja -DCMAKE_PREFIX_PATH=\"D:/cjadhav/Qt/6.11.0/mingw_64\" -DCMAKE_BUILD_TYPE=Debug)"
+    ]
+  }
+}
