@@ -1,3 +1,4 @@
+// Catalogue screen — search + filter pills + card list
 import QtQuick
 import QtQuick.Controls
 
@@ -5,104 +6,172 @@ Item {
     id: catalogueScreen
     Component.onCompleted: console.log("LOG: CatalogueScreen created OK")
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#000000"
+    property string activeFilter: "ALL"
 
-        // ── Search bar ────────────────────────────────────────────────
-        Rectangle {
-            id: searchBar
-            anchors { top: parent.top; left: parent.left; right: parent.right }
-            height: 52; color: "#111111"
+    Rectangle { anchors.fill: parent; color: "#050305" }
+
+    Column {
+        anchors.fill: parent
+        spacing: 0
+
+        // ── Search bar ───────────────────────────────────────────────
+        Item {
+            width: parent.width; height: 52
 
             Rectangle {
-                anchors { bottom: parent.bottom; left: parent.left; right: parent.right }
-                height: 1; color: "#FFD700"; opacity: 0.25
-            }
+                anchors { fill: parent; leftMargin: 14; rightMargin: 14; topMargin: 8; bottomMargin: 8 }
+                color: "#1a141a"
+                border.color: "#2eD4AF37"; border.width: 1
+                radius: 20
 
-            Row {
-                anchors { left: parent.left; right: parent.right; leftMargin: 16; rightMargin: 16; verticalCenter: parent.verticalCenter }
-                spacing: 10
+                Row {
+                    anchors { fill: parent; leftMargin: 14; rightMargin: 14 }
+                    spacing: 10
 
-                Text {
-                    text: "\u2315"   // search-like symbol
-                    color: "#FFD700"; font.pixelSize: 18; opacity: 0.6
-                    anchors.verticalCenter: parent.verticalCenter
-                }
+                    Text {
+                        text: "\u2315"  // loupe-like
+                        color: "#80D4AF37"; font.pixelSize: 16
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
 
-                TextField {
-                    id: searchField
-                    width: parent.width - 40
-                    placeholderText: "Search cards or deities\u2026"
-                    color: "#FFFDD0"; font.pixelSize: 14
-                    background: Item {}
-                    placeholderTextColor: "#555555"
-                    onTextChanged: appController.searchCatalogue(text)
+                    TextField {
+                        id: searchField
+                        width: parent.width - 36
+                        anchors.verticalCenter: parent.verticalCenter
+                        placeholderText: "Search cards or deities\u2026"
+                        color: "#EDD9A3"; font.pixelSize: 13
+                        background: Item {}
+                        placeholderTextColor: "#4dEDD9A3"
+                        onTextChanged: appController.searchCatalogue(text)
+                    }
                 }
             }
         }
 
-        // ── Card list ─────────────────────────────────────────────────
-        ListView {
-            id: cardList
-            anchors { top: searchBar.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
-            clip: true; spacing: 1
-            model: appController.catalogueModel
+        // ── Filter pills ─────────────────────────────────────────────
+        Item {
+            width: parent.width; height: 38
 
-            delegate: Rectangle {
-                width: cardList.width; height: 72
-                color: index % 2 === 0 ? "#0A0A0A" : "#111111"
+            ListView {
+                anchors { fill: parent; leftMargin: 14; rightMargin: 14; topMargin: 4; bottomMargin: 4 }
+                orientation: ListView.Horizontal
+                spacing: 6
+                clip: true
+                model: ["ALL", "MAJOR", "CUPS", "SWORDS", "PENTACLES", "WANDS"]
 
-                // Badge
-                Rectangle {
-                    id: badge
-                    x: 16; anchors.verticalCenter: parent.verticalCenter
-                    width: 40; height: 40; radius: 4
-                    color: "#1A1A1A"; border.color: "#FFD700"; border.width: 1
+                delegate: Rectangle {
+                    property bool isActive: catalogueScreen.activeFilter === modelData
+                    height: 28; width: pillText.width + 24
+                    radius: 14
+                    color: isActive ? "#1aD4AF37" : "transparent"
+                    border.color: isActive ? "#D4AF37" : "#33D4AF37"; border.width: 1
+                    anchors.verticalCenter: parent.verticalCenter
+
                     Text {
+                        id: pillText
                         anchors.centerIn: parent
-                        text: model.cardId !== undefined ? String(model.cardId) : ""
-                        color: "#FFD700"; font.pixelSize: 12; font.bold: true
+                        text: modelData
+                        color: isActive ? "#D4AF37" : "#80EDD9A3"
+                        font.pixelSize: 8; font.letterSpacing: 2
                     }
-                }
 
-                // Arcana dot
-                Rectangle {
-                    id: arcDot
-                    anchors { right: parent.right; rightMargin: 16; verticalCenter: parent.verticalCenter }
-                    width: 8; height: 8; radius: 4
-                    color: (model.arcana || "").indexOf("Major") !== -1 ? "#FFD700" : "#FF4500"
-                    opacity: 0.8
-                }
-
-                // Card info
-                Column {
-                    anchors {
-                        left: badge.right; leftMargin: 14
-                        right: arcDot.left; rightMargin: 10
-                        verticalCenter: parent.verticalCenter
-                    }
-                    spacing: 2
-
-                    Text {
-                        width: parent.width
-                        text: model.cardType || ""
-                        color: "#FFFDD0"; font.pixelSize: 14; font.bold: true
-                        elide: Text.ElideRight
-                    }
-                    Text {
-                        width: parent.width
-                        text: (model.name || "") + "  \u00B7  " + (model.arcana || "")
-                        color: "#888888"; font.pixelSize: 12
-                        elide: Text.ElideRight
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: catalogueScreen.activeFilter = modelData
                     }
                 }
             }
+        }
 
+        // ── Card list ────────────────────────────────────────────────
+        ListView {
+            id: cardList
+            width: parent.width
+            height: parent.height - 52 - 38
+            clip: true
+            leftMargin: 14; rightMargin: 14
+            topMargin: 4; bottomMargin: 4
+            spacing: 7
+            model: appController.catalogueModel
+
+            delegate: Rectangle {
+                width: cardList.width - 28
+                anchors.horizontalCenter: parent ? parent.horizontalCenter : undefined
+                height: 68
+                color: "#110d10"
+                border.color: "#1aD4AF37"; border.width: 1
+                radius: 10
+
+                Row {
+                    anchors { fill: parent; leftMargin: 12; rightMargin: 12 }
+                    spacing: 12
+
+                    // Mini card thumbnail
+                    Rectangle {
+                        width: 36; height: 54; radius: 5
+                        color: "#1a141a"; border.color: "#2eD4AF37"; border.width: 1
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: "\u0950"; color: "#D4AF37"; font.pixelSize: 16; opacity: 0.4
+                        }
+                    }
+
+                    // Card info
+                    Column {
+                        anchors.verticalCenter: parent.verticalCenter
+                        spacing: 3
+                        width: parent.width - 36 - 12 - 44 - 12
+
+                        Text {
+                            width: parent.width
+                            text: model.cardType || ""
+                            color: "#D4AF37"; font.pixelSize: 12; font.bold: true
+                            elide: Text.ElideRight
+                        }
+                        Text {
+                            width: parent.width
+                            text: (model.name || "") + "  \u00B7  " + (model.arcana || "")
+                            color: "#E8630A"; font.pixelSize: 11; font.italic: true
+                            elide: Text.ElideRight
+                        }
+                        Text {
+                            width: parent.width
+                            text: model.uprightKeywords || ""
+                            color: "#59EDD9A3"; font.pixelSize: 10
+                            elide: Text.ElideRight
+                        }
+                    }
+
+                    // Arcana badge
+                    Rectangle {
+                        width: 44; height: 24; radius: 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        color: "#0dD4AF37"
+                        border.color: "#33D4AF37"; border.width: 1
+                        Text {
+                            anchors.centerIn: parent
+                            text: (model.arcana || "").indexOf("Major") !== -1 ? "MAJ" : "MIN"
+                            color: "#80EDD9A3"; font.pixelSize: 7; font.letterSpacing: 1
+                        }
+                    }
+                }
+
+                // Pressed state
+                MouseArea {
+                    anchors.fill: parent
+                    onPressed: parent.color = "#221a141a"
+                    onReleased: parent.color = "#110d10"
+                    onClicked: console.log("LOG: Catalogue card tapped:", model.cardType)
+                }
+            }
+
+            // Empty state
             Text {
                 anchors.centerIn: parent
                 text: "No cards found"
-                color: "#444444"; font.pixelSize: 16
+                color: "#33EDD9A3"; font.pixelSize: 14
                 visible: cardList.count === 0
             }
         }
