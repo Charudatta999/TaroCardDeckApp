@@ -4,9 +4,14 @@ import QtQuick.Controls
 
 Item {
     id: homeScreen
-    Component.onCompleted: console.log("LOG: HomeScreen created OK")
+    Component.onCompleted: {
+        console.log("LOG: [HomeScreen] >>> created OK, size=" + width + "x" + height)
+    }
 
     signal navigateTo(string screen)
+    onNavigateTo: function(screen) {
+        console.log("LOG: [HomeScreen] navigateTo signal emitted: " + screen)
+    }
 
     // Deep purple-black radial gradient bg
     Rectangle {
@@ -195,7 +200,10 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: homeScreen.navigateTo("draw")
+            onClicked: {
+                if (typeof haptics !== "undefined") haptics.heavy()
+                homeScreen.navigateTo("draw")
+            }
         }
     }
 }

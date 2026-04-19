@@ -13,7 +13,8 @@
       "Bash(cmake --version)",
       "Bash(ninja --version)",
       "Bash(where cl:*)",
-      "Bash(cmake -S \"D:/cjadhav/TaroCardDeckApp\" -B \"D:/cjadhav/TaroCardDeckApp/build-desktop\" -G Ninja -DCMAKE_PREFIX_PATH=\"D:/cjadhav/Qt/6.11.0/mingw_64\" -DCMAKE_BUILD_TYPE=Debug)"
+      "Bash(cmake -S \"D:/cjadhav/TaroCardDeckApp\" -B \"D:/cjadhav/TaroCardDeckApp/build-desktop\" -G Ninja -DCMAKE_PREFIX_PATH=\"D:/cjadhav/Qt/6.11.0/mingw_64\" -DCMAKE_BUILD_TYPE=Debug)",
+      "Bash(cmake --build . --config Debug --target all)"
     ]
   }
 }

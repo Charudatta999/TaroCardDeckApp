@@ -5,7 +5,7 @@ Reading::Reading(SpreadType type)
 {
 }
 
-void Reading::addCard(const Card &card)
+void Reading::addCard(const CardData &card)
 {
     if (!isComplete())
         m_cards.append(card);
@@ -17,7 +17,7 @@ void Reading::clear()
 }
 
 Reading::SpreadType Reading::spreadType() const { return m_spreadType; }
-const QVector<Card> &Reading::cards() const { return m_cards; }
+const QVector<CardData> &Reading::cards() const { return m_cards; }
 
 int Reading::maxCards() const
 {

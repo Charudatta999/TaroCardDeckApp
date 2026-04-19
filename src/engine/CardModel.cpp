@@ -16,17 +16,18 @@ QVariant CardModel::data(const QModelIndex &index, int role) const
     if (!index.isValid() || index.row() >= m_cards.size())
         return QVariant();
 
-    const Card &card = m_cards.at(index.row());
+    const CardData &c = m_cards.at(index.row());
     switch (role) {
-    case IdRole:               return card.id();
-    case CardTypeRole:         return card.cardType();
-    case ArcanaRole:           return card.arcana();
-    case UprightKeywordsRole:  return card.uprightKeywords();
-    case ReversedKeywordsRole: return card.reversedKeywords();
-    case NameRole:             return card.name();
-    case NotesRole:            return card.notes();
-    case ImagePathRole:        return card.imagePath();
-    case IsReversedRole:       return card.isReversed();
+    case IdRole:               return c.id;
+    case CardTypeRole:         return c.cardType;
+    case ArcanaRole:           return c.arcana;
+    case UprightKeywordsRole:  return c.uprightKeywords;
+    case ReversedKeywordsRole: return c.reversedKeywords;
+    case NameRole:             return c.name;
+    case NotesRole:            return c.notes;
+    case ImagePathRole:        return c.imagePath;
+    case IsReversedRole:       return c.isReversed;
+    default: break;
     }
     return QVariant();
 }
@@ -46,7 +47,26 @@ QHash<int, QByteArray> CardModel::roleNames() const
     };
 }
 
-void CardModel::setCards(const QVector<Card> &cards)
+QVariantMap CardModel::get(int row) const
+{
+    QVariantMap map;
+    if (row < 0 || row >= m_cards.size())
+        return map;
+
+    const CardData &c = m_cards.at(row);
+    map.insert("cardId",           c.id);
+    map.insert("cardType",         c.cardType);
+    map.insert("arcana",           c.arcana);
+    map.insert("uprightKeywords",  c.uprightKeywords);
+    map.insert("reversedKeywords", c.reversedKeywords);
+    map.insert("name",             c.name);
+    map.insert("notes",            c.notes);
+    map.insert("imagePath",        c.imagePath);
+    map.insert("isReversed",       c.isReversed);
+    return map;
+}
+
+void CardModel::setCards(const QVector<CardData> &cards)
 {
     beginResetModel();
     m_cards = cards;
@@ -54,7 +74,7 @@ void CardModel::setCards(const QVector<Card> &cards)
     emit countChanged();
 }
 
-void CardModel::addCard(const Card &card)
+void CardModel::addCard(const CardData &card)
 {
     beginInsertRows(QModelIndex(), m_cards.size(), m_cards.size());
     m_cards.append(card);

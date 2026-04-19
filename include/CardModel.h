@@ -1,7 +1,7 @@
 #ifndef CARDMODEL_H
 #define CARDMODEL_H
 
-#include "Card.h"
+#include "CardData.h"
 #include <QAbstractListModel>
 
 class CardModel : public QAbstractListModel
@@ -24,19 +24,23 @@ public:
 
     explicit CardModel(QObject *parent = nullptr);
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int     rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    void setCards(const QVector<Card> &cards);
-    void addCard(const Card &card);
+    // JS-friendly accessor: returns the row at `index` as a map of role-name -> value.
+    // Returns an empty map if index is out of range.
+    Q_INVOKABLE QVariantMap get(int row) const;
+
+    void setCards(const QVector<CardData> &cards);
+    void addCard(const CardData &card);
     void clear();
 
 signals:
     void countChanged();
 
 private:
-    QVector<Card> m_cards;
+    QVector<CardData> m_cards;
 };
 
 #endif // CARDMODEL_H

@@ -1,7 +1,7 @@
 #ifndef DECK_H
 #define DECK_H
 
-#include "Card.h"
+#include "CardData.h"
 #include <QVector>
 
 class Deck
@@ -12,14 +12,14 @@ public:
     bool loadFromJson(const QString &filePath);
     void shuffle();
     void reset();
-    Card drawCard();
-    QVector<Card> drawCards(int count);
+    CardData drawCard();
+    QVector<CardData> drawCards(int count);
     int remainingCards() const;
-    const QVector<Card> &allCards() const;
+    const QVector<CardData> &allCards() const;
 
 private:
-    QVector<Card> m_cards;
-    QVector<Card> m_drawPile;
+    QVector<CardData> m_cards;
+    QVector<CardData> m_drawPile;
 };
 
 #endif // DECK_H

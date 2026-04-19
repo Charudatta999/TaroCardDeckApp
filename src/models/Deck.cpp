@@ -4,11 +4,9 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QRandomGenerator>
-#include <algorithm>
 
 bool Deck::loadFromJson(const QString &filePath)
 {
-    // TODO: implement JSON loading
     Q_UNUSED(filePath)
     return false;
 }
@@ -28,20 +26,20 @@ void Deck::reset()
     m_drawPile = m_cards;
 }
 
-Card Deck::drawCard()
+CardData Deck::drawCard()
 {
     if (m_drawPile.isEmpty())
-        return Card();
+        return CardData();
     return m_drawPile.takeLast();
 }
 
-QVector<Card> Deck::drawCards(int count)
+QVector<CardData> Deck::drawCards(int count)
 {
-    QVector<Card> drawn;
+    QVector<CardData> drawn;
     for (int i = 0; i < count && !m_drawPile.isEmpty(); ++i)
         drawn.append(drawCard());
     return drawn;
 }
 
 int Deck::remainingCards() const { return m_drawPile.size(); }
-const QVector<Card> &Deck::allCards() const { return m_cards; }
+const QVector<CardData> &Deck::allCards() const { return m_cards; }
